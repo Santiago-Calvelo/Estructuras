@@ -13,7 +13,7 @@ void buscarCancion(Cancion cancionero[100], int cantC) {
     string search;
     int found = 1;
     cin.ignore();
-    cout << "Que cancion quiere buscar?";
+    cout << "Que cancion quiere buscar?" << endl;
     getline(cin,search);
 
 
