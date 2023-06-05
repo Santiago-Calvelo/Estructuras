@@ -9,20 +9,30 @@ struct Cancion {
 };
 
 void buscarCancion(Cancion cancionero[100], int cantC) {
-    int idx = -1;
+    char n = 164;
     string search;
-    cout << "Ingrese un texto que contenga la cancion (titulo, artista): ";
-    cin >> search;
+    int found = 1;
+    cin.ignore();
+    cout << "Que cancion quiere buscar?";
+    getline(cin,search);
 
 
-    for (int i = 0; i < cantC; i++) {
-        if     (cancionero[i].artist == search) { idx = i; break; }
-        else if (cancionero[i].title == search) { idx = i; break; }
+    for(int i = 0; i < cantC; i++) {
+        if(cancionero[i].artist.find(search) != string::npos || cancionero[i].title.find(search) != string::npos) {
+            cout << "Cancion encontrada. Es la numero " << i+1 << endl;
+            cout << "Artista: " << cancionero[i].artist << endl;
+            cout << "Titulo: " << cancionero[i].title << endl;
+            cout << "Duracion: " << cancionero[i].time << "s" << endl;
+            cout << "Tama" << n << "o: " << cancionero[i].size << endl;
+            found = 0;
+        }
     }
+
+    if (found) cout << "No se ha encontrado la cancion" << endl;
 }
 
 int ingresarCanciones (Cancion cancionero[100], int cantC) {
-    cantC++;
+    char n = 164;
     string artist, title;
     int time, size;
 
@@ -30,28 +40,25 @@ int ingresarCanciones (Cancion cancionero[100], int cantC) {
     cin >> artist;
 
     cout << "Ingrese el nombre de la cancion: " << endl;
-    cin >> title;
+    cin.ignore();
+    getline(cin,title);
 
-    cout << "Ingrese la time en segundos: " << endl;
+    cout << "Ingrese la duracion en segundos: " << endl;
     cin >> time;
 
-    cout << "Ingrese tamaño en kb: " << endl;
+    cout << "Ingrese tama" << n << "o en kb: " << endl;
     cin >> size;
 
     Cancion cancion = {artist, title, time, size};
     cancionero[cantC] = cancion;
-    
+    cantC++;
     return cantC;
 }
 
 void imprimirCancionero(Cancion cancionero[100], int cantC) {
     char n = 164;
     for (int i = 0; i < cantC; i++) {
-        cout << "Cancion: " << i+1 << endl;
-        cout << "\tArtista: " << cancionero[i].artist << endl;
-        cout << "\tTitulo: " << cancionero[i].title << endl;
-        cout << "\tDuracion: " << cancionero[i].time << endl;
-        cout << "\tTama" << n << "o: " << cancionero[i].size << endl;
+        cout << i+1 << "- " << "Titulo: " << cancionero[i].title << endl;
     }
 }
 
@@ -64,9 +71,10 @@ int main(void) {
         cout << "\t1) Agregar cancion" << endl;
         cout << "\t2) Buscar cancion" << endl;
         cout << "\t3) Imprimir cancionero" << endl;
+        cout << "\t4) Salir" << endl;
 
         int choice;
-        cin >> choice,
+        cin >> choice;
 
         switch(choice) {
             case 1:
@@ -78,6 +86,8 @@ int main(void) {
             case 3:
                 imprimirCancionero(cancionero, cantC);
                 break;
+            case 4:
+                return 0;
         }
     }
 }
